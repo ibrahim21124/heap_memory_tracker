@@ -1,0 +1,25 @@
+removed '../bin/app.out'
+removed directory '../bin'
+removed '../obj/Alloc.o'
+removed '../obj/Dealloc.o'
+removed '../obj/heaptracker.o'
+removed '../obj/LinkedList.o'
+removed '../obj/main.o'
+removed '../obj/trackAlloc.o'
+removed '../obj/trackDealloc.o'
+removed directory '../obj'
+removed '../lib/libheaptracker.a'
+removed directory '../lib'
+mkdir -p ../obj
+g++ -I ../include -Wall -c -g ../src/Dealloc.cpp -o ../obj/Dealloc.o
+g++ -I ../include -Wall -c -g ../src/trackDealloc.cpp -o ../obj/trackDealloc.o
+g++ -I ../include -Wall -c -g ../src/LinkedList.cpp -o ../obj/LinkedList.o
+g++ -I ../include -Wall -c -g ../src/trackAlloc.cpp -o ../obj/trackAlloc.o
+g++ -I ../include -Wall -c -g ../src/Alloc.cpp -o ../obj/Alloc.o
+g++ -I ../include -Wall -c -g ../src/heaptracker.cpp -o ../obj/heaptracker.o
+mkdir -p ../lib
+ar rcs ../lib/libheaptracker.a ../obj/Dealloc.o ../obj/trackDealloc.o ../obj/LinkedList.o ../obj/trackAlloc.o ../obj/Alloc.o ../obj/heaptracker.o 
+g++ -I ../include -Wall -c -g  ../main.cpp -o ../obj/main.o
+mkdir -p ../bin
+g++ -o app.out ../obj/main.o -L. ../lib/libheaptracker.a
+mv app.out ../bin
